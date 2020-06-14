@@ -22,16 +22,22 @@
  */
 #include "platform.h"
 #include "memory.h"
+#include <stdint.h>
+#include "course1.h"
+#include "data.h"
+#include "stats.h"
+
 
 #define MAX_LENGTH (10)
 char buffer[MAX_LENGTH];
 
 /* A pretty boring main file */
 int main(void) {
+/*  ***Commenting the old code ***	
   unsigned int i;
   char value;
 
-  /* Code below does some arbitrary memory Reads & writes */
+  // Code below does some arbitrary memory Reads & writes 
   clear_all(buffer, MAX_LENGTH);
   set_all( ( buffer + 8 ), 43, 2); 
   set_value(buffer, 0, 0x61);
@@ -48,7 +54,13 @@ int main(void) {
   for ( i = 0; i < MAX_LENGTH; i++ ){
     PRINTF("%c", buffer[i]);
   }
-  PRINTF("\n");
+  PRINTF("\n"); */
+  
+  #ifdef COURSE1
+  course1();
+  #endif
+
+
   return 0;
 }
 

@@ -24,13 +24,15 @@
 
 
 #include <stdio.h>
-#include <math.h>
 #include "stats.h"
+
+#include <stdint.h>
+#include "platform.h"
 
 /* Size of the Data Set */
 #define SIZE (40)
 
-void main() {
+int main() {
 
   unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
                               114, 88,   45,  76, 123,  87,  25,  23,
@@ -41,14 +43,19 @@ void main() {
   /* Other Variable Declarations Go Here */
 
   /* Statistics and Printing Functions Go Here */
-  printf("The Array Elements:\n");
+  
+  //Creating compile time switch for printing
+  #ifdef VERBOSE 
+  PRINTF("The Array Elements:\n");
   print_array(test, SIZE);//printing the array
 
   sort_array(test, SIZE); // Performing sorting
-  printf("The sorted Array(descending order):\n");
+  PRINTF("The sorted Array(descending order):\n");
   print_array(test, SIZE);
   
-  print_statistics(test, SIZE);//Printing the Statistics  
+  print_statistics(test, SIZE);//Printing the Statistics
+  #endif
+  return 0;  
 }
 
 
@@ -57,12 +64,16 @@ void main() {
 
 void print_array(unsigned char* ptr,unsigned int n){  
   for(int i=0; i<n; i++){
-    printf("%u\t",(unsigned int) *(ptr+i));//Prints on the element 	  
-    if((i+1)%8 == 0){	    
-      printf("\n");//Creates a new line after printing 8 elements
+    #ifdef VERBOSE	  
+    PRINTF("%u\t",(unsigned int) *(ptr+i));//Prints on the element 	  
+    #endif
+    if((i+1)%8 == 0){
+      #ifdef VERBOSE	    
+      PRINTF("\n");//Creates a new line after printing 8 elements
+      #endif
     }	     
   }	  
-  printf("\n");       	
+  PRINTF("\n");       	
 }
 
 void print_statistics(unsigned char* ptr,unsigned int n){
@@ -77,11 +88,11 @@ void print_statistics(unsigned char* ptr,unsigned int n){
   minimum = find_minimum(ptr, n);
   median = find_median(ptr, n);
 
-  printf("\nPrinting the statistics:\n");
-  printf("Mean = %u \n",(unsigned int) mean);
-  printf("Maximum=%u \n",(unsigned int) maximum);  
-  printf("Minimum=%u \n",(unsigned int) minimum); 
-  printf("Median=%u \n",(unsigned int) median); 
+  PRINTF("\nPrinting the statistics:\n");
+  PRINTF("Mean = %u \n",(unsigned int) mean);
+  PRINTF("Maximum=%u \n",(unsigned int) maximum);  
+  PRINTF("Minimum=%u \n",(unsigned int) minimum); 
+  PRINTF("Median=%u \n",(unsigned int) median); 
 }	
 
 unsigned char find_median(unsigned char* ptr,unsigned int n){
@@ -114,7 +125,7 @@ unsigned char find_median(unsigned char* ptr,unsigned int n){
 unsigned char find_mean(unsigned char* ptr,unsigned int n){
   unsigned int mean = 0;
   unsigned char mean_uc;
-  float mean_f; 
+//float mean_f; 
   unsigned int sum = 0;
   if ( ptr == 0){
     return 0; //Overcoming null pointer dereference

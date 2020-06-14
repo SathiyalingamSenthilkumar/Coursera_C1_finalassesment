@@ -36,7 +36,7 @@ include sources.mk
 PLATFORM = MSP432 #default
 
 # Final Target
-TARGET = c1m2
+TARGET = c1
 
 
 ifeq ($(PLATFORM),HOST)
@@ -46,7 +46,7 @@ ifeq ($(PLATFORM),HOST)
   CC = gcc 
   LD = ld
   LDFLAGS = -Wl,-Map=$(TARGET).map
-  CFLAGS =  -Wall -Werror -g -O0 -std=c99
+  CFLAGS = -Wall -Werror -g -O0 -std=c99
   CPPFLAGS = $(INCLUDES)
   DEPFLAGS = -MM
   SIZETOOL = size #To produce the size of code
@@ -55,7 +55,7 @@ ifeq ($(PLATFORM),HOST)
 else
 
   # Architectures Specific Flags
-  LINKER_FILE = ../msp432p401r.lds
+  LINKER_FILE = msp432p401r.lds
   CPU = cortex-m4
   ARCH = thumb
   SPECS = nosys.specs
@@ -65,7 +65,7 @@ else
   CC = arm-none-eabi-gcc 
   LD = arm-none-eabi-ld
   LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE)
-  CFLAGS =  -Wall -Werror -g -O0 -std=c99 -mcpu=$(CPU) -m$(ARCH) \
+  CFLAGS =  -g -O0 -std=c99 -mcpu=$(CPU) -m$(ARCH) \
 	    -march=armv7e-m -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
 	    --specs=$(SPECS)
 
