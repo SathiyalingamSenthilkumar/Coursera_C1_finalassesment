@@ -90,4 +90,98 @@ void set_all(char * ptr, char value, unsigned int size);
  */
 void clear_all(char * ptr, unsigned int size);
 
+/* Functions that are added   */
+/**
+ * @brief move from source to destination
+ *
+ * Takes two byte pointers one source, one destination and length. Move 
+ * from source to destination
+ *
+ * @param src pointer to the source
+ * @param dst pointer to the destination
+ * @param length length of bytes
+ *
+ * @return pointer to the destination
+ * */
+uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length);
+
+/**
+ * @brief Copy from source to destination
+ * 
+ * Takes two byte pointers one source, one destination and length. Copies 
+ * from source to destination
+ *
+ * @param src pointer to the source
+ * @param dst pointer to the destination
+ * @param length length of bytes
+ *
+ * @return pointer to the destination 
+ */
+uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length);
+
+/**
+ * brief set all locations with given value
+ *
+ * Takes a pointer to the source memory location, length in bytes, 
+ * and set all the locations of that memory to a given value.
+ *
+ * @param src pointer to the source
+ * @param length length in bytes
+ * @param value Value to be stored
+ *
+ * @return a poiter to the source
+ */
+uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value);
+
+/**
+ * @brief zero out the specified memory
+ *
+ * Takes a pointer to a momory and length in bytes and zero out
+ * all the memory.
+ *
+ * @param src source pointer
+ * @param length size in bytes
+ *
+ * @return a pointer to the source
+ */
+uint8_t * my_memzero(uint8_t * src, size_t length);
+
+/**
+ * @Brief reverse the order of bytes
+ *
+ * Takes a pointer to a memory location and a length in bytes
+ * to reverse the order of all the bytes
+ *
+ * @param src pointer to the source location
+ * @param length length in bytes
+ *
+ * @return a pointer to the source
+ */
+uint8_t * my_reverse(uint8_t * src, size_t length);
+
+/**
+ * @brief allocate dynamic memory
+ *
+ * Takes the number of words as input and allocate dynamic
+ * memory
+ *
+ * @param length number of words to allocate memory
+ *
+ * @return a pointer if successful or returns null pointer
+ *
+ */
+int32_t * reserve_words(size_t length);
+
+/**
+ * @brief Free the dynamic memory
+ *
+ * Frees the dynamic memory allocated by proving the pointer
+ * to the src function
+ *
+ * @param src pointer to memory that needs to be freed
+ *
+ * @retun void 
+ */
+void free_words(int32_t * src);
+
 #endif /* __MEMORY_H__ */
