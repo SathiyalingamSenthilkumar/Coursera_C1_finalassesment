@@ -7,6 +7,10 @@
 #ifndef __DATA_H__
 #define __DATA_H__
 
+#include <stdint.h>
+#include <stddef.h>
+
+
 /**
  * @brief Integer-to-ASCII
  *

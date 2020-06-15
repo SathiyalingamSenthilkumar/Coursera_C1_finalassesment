@@ -26,6 +26,7 @@
 #include "course1.h"
 #include "data.h"
 #include "stats.h"
+#include <stddef.h>
 
 
 #define MAX_LENGTH (10)
@@ -34,6 +35,7 @@ char buffer[MAX_LENGTH];
 /* A pretty boring main file */
 int main(void) {
 /*  ***Commenting the old code ***	
+  
   unsigned int i;
   char value;
 

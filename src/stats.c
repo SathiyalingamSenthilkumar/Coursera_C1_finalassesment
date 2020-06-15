@@ -31,6 +31,7 @@
 
 /* Size of the Data Set */
 #define SIZE (40)
+/*
 
 int main() {
 
@@ -40,9 +41,9 @@ int main() {
                               201,   6,  12,  60,   8,   2,   5,  67,
                                 7,  87, 250, 230,  99,   3, 100,  90};
 
-  /* Other Variable Declarations Go Here */
+  // Other Variable Declarations Go Here 
 
-  /* Statistics and Printing Functions Go Here */
+  // Statistics and Printing Functions Go Here 
   
   //Creating compile time switch for printing
   #ifdef VERBOSE 
@@ -58,7 +59,7 @@ int main() {
   return 0;  
 }
 
-
+*/
 
 /* Function Definitions */
 

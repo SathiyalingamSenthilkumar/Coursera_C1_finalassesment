@@ -14,20 +14,11 @@
 # 
 #*****************************************************************************
 
-ifeq ($(PLATFORM),HOST) #if HOST PLATFORM
-  
-  # Add your Source files to this variable
-  SOURCES = src/main.c \
-	    src/memory.c \
-	    src/stats.c \
-	    src/data.c \
-	    src/course1.c 
 
-  # Add your include paths to this variable
-  INCLUDES = -I include/common
+PLATFORM = HOST #default
 
-else
-  
+ifeq ($(PLATFORM),MSP432) #if HOST PLATFORM
+
   #FOR MSP432
   # Add your Source files to this variable
   SOURCES = src/main.c \
@@ -45,5 +36,18 @@ else
   INCLUDES = -I include/common \
 	     -I include/CMSIS \
 	     -I include/msp432
+
+else
+  
+  # Add your Source files to this variable
+  SOURCES = src/main.c \
+	    src/memory.c \
+	    src/stats.c \
+	    src/data.c \
+	    src/course1.c 
+
+  # Add your include paths to this variable
+  INCLUDES = -I include/common
+
 
 endif

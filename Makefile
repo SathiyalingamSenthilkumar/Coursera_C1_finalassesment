@@ -33,26 +33,16 @@
 include sources.mk
 
 # Platform Overrides
-PLATFORM = MSP432 #default
+PLATFORM = HOST #default
+COURSE = COURSE1
+VERBOSE = NOT_VERBOSE 
 
 # Final Target
 TARGET = c1
 
 
-ifeq ($(PLATFORM),HOST)
+ifeq ($(PLATFORM),MSP432)
   
-  #For HOST PLATFORM  
-  # Compiler Flags and Defines
-  CC = gcc 
-  LD = ld
-  LDFLAGS = -Wl,-Map=$(TARGET).map
-  CFLAGS = -Wall -Werror -g -O0 -std=c99
-  CPPFLAGS = $(INCLUDES)
-  DEPFLAGS = -MM
-  SIZETOOL = size #To produce the size of code
-  DUMPTOOL = objdump
-
-else
 
   # Architectures Specific Flags
   LINKER_FILE = msp432p401r.lds
@@ -74,6 +64,19 @@ else
   SIZETOOL = arm-none-eabi-size #To produce the size of code
   DUMPTOOL = arm-none-eabi-objdump # -marmv7e
 
+else
+  
+  #For HOST PLATFORM  
+  # Compiler Flags and Defines
+  CC = gcc 
+  LD = ld
+  LDFLAGS = -Wl,-Map=$(TARGET).map
+  CFLAGS =  -Wall -Werror -g -O0 -std=c99
+  CPPFLAGS = $(INCLUDES)
+  DEPFLAGS = -MM
+  SIZETOOL = size #To produce the size of code
+  DUMPTOOL = objdump
+
 endif
 
 
@@ -84,8 +87,8 @@ DEPFILES = $(OBJS:.o=.d)
 
 # Generating Object and correponding dependency files
 #%.o : %.c
-#	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -c -o $@ $<
-#	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) $(DEPFLAGS) $< > $(@:.o=.d)	
+#	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -D$(COURSE) -D$(VERBOSE) -c -o $@ $<
+#	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) $(DEPFLAGS) -D$(COURSE) -D$(VERBOSE) $< > $(@:.o=.d)	
 
 
 # Creating Preprocessed file variable
@@ -93,7 +96,7 @@ PRES = $(SOURCES:.c=.i)
 
 # Generating Preprocessed files
 %.i : %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -E -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -D$(COURSE) -D$(VERBOSE) -E -o $@ $<
 	
 
 # Creating assembly file variables
@@ -101,7 +104,7 @@ ASMS = $(SOURCES:.c=.asm)
 
 # Generating Preprocessed files
 %.asm : %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -S -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -D$(COURSE) -D$(VERBOSE) -S -o $@ $<
 
 
 # build Phony - same as all
@@ -113,7 +116,7 @@ build: all
 all:$(TARGET).out 
 
 $(TARGET).out: $(OBJS)
-	$(CC) $(OBJS) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -D$(PLATFORM) -o $@ 	
+	$(CC) $(OBJS) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -D$(PLATFORM) -D$(COURSE) -D$(VERBOSE) -o $@ 	
 	$(SIZETOOL) -Bx $@	#displaying Size
 	$(DUMPTOOL) -S $(TARGET).out 1> $(TARGET).asm	
 	
@@ -128,8 +131,8 @@ compile-all:$(OBJS)
 
 # Generating Object and correponding dependency files
 %.o : %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -c -o $@ $<
-	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) $(DEPFLAGS) $< > $(@:.o=.d)	
+	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -D$(COURSE) -D$(VERBOSE) -c -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(PLATFORM) -D$(COURSE) -D$(VERBOSE) $(DEPFLAGS) $< > $(@:.o=.d)	
 
 
 
